@@ -10236,7 +10236,7 @@ return Q.yK(C.jn.IV(J.oW(Q.Lu((4278190080&t)>>>24,(4278190080&u)>>>24,c)),0,255)
 jb:function(){return new Q.ly(new Q.Rc())},
 NM:function(a,b,c,d,e){if(d==null){if(c.length!==2)H.vh(P.xY('"colors" must have length 2 if "colorStops" is omitted.'))}else if(c.length!==d.length)H.vh(P.xY('"colors" and "colorStops" arguments must have equal length.'))
 return new Q.vU(a,b,c,d)},
-Eg:function(a){return T.hP(new Q.xk(a),Q.pW)},
+Eg:function(a,b){return T.hP(new Q.xk(a),Q.pW)},
 lv:function(a,b,c,d,e,f,g,h,i,j,k,l,m,n){return new Q.MN(n,b,d,l,c,e,f,a,g,i,h,m,j,k)},
 hu:function(a,b,c){var u,t=a==null?null:a.a
 if(t==null)t=3
@@ -19155,16 +19155,17 @@ return new H.cu(H.Zl(u)).w(0)+"(bundle: "+H.Ej(u.a)+', name: "'+H.Ej(u.b)+'", sc
 M.JAn.prototype={
 cD:function(a,b){return L.Fd(this.qW(b),new M.Uc(this,b),b.c)},
 qW:function(a){return this.Tg(a)},
-Tg:function(a){var u=0,t=P.I(Q.pW),s,r,q
+Tg:function(a){var u=0,t=P.I(Q.pW),s,r,q,p
 var $async$qW=P.lz(function(b,c){if(b===1)return P.f3(c,t)
 while(true)switch(u){case 0:u=3
 return P.x(a.a.cD(0,a.b),$async$qW)
-case 3:q=c
-if(q==null)throw H.A("Unable to read data")
-r=q.buffer
-r.toString
+case 3:p=c
+if(p==null)throw H.A("Unable to read data")
+r=$.Ck
+q=p.buffer
+q.toString
 u=4
-return P.x(Q.Eg(H.GG(r,0,null)),$async$qW)
+return P.x(Q.Eg(H.GG(q,0,null),r.GI$),$async$qW)
 case 4:s=c
 u=1
 break
