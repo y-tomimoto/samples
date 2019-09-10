@@ -11,7 +11,12 @@ import 'package:flutter/material.dart';
 ///
 /// For simplicity, the catalog is expected to be immutable (no products are
 /// expected to be added, removed or changed during the execution of the app).
+
+//これが不変のものと言っているのか。
 class CatalogModel {
+
+  //　配列を指定
+
   static const _itemNames = [
     'Code Smell',
     'Control Flow',
@@ -34,6 +39,8 @@ class CatalogModel {
   ///
   /// In this sample, the catalog is infinite, looping over [_itemNames].
   Item getById(int id) => Item(id, _itemNames[id % _itemNames.length]);
+
+  // メソッドを指定
 
   /// Get item by its position in the catalog.
   Item getByPosition(int position) {

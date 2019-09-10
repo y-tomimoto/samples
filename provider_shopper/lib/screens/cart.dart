@@ -37,6 +37,11 @@ class _CartList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var itemNameStyle = Theme.of(context).textTheme.title;
+
+    // お、ここで引き出しているやないか、、、
+    // しかも、これどういう記法だこの野郎。
+    // この記法を用いて、全て参照可能?
+    // ここに対してはあるのか。
     var cart = Provider.of<CartModel>(context);
 
     return ListView.builder(
@@ -63,8 +68,16 @@ class _CartTotal extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // ここにConsumerがあるな、これはbuild実行時に参照されるものぽいな。
+            // stateを消費するイメージだろうか。
+            // リスナーが発火したら、そのroot下全てのクラスでconsumeできるようになるぽいな。
+            // consumer自体がどこにあるのか、、、そもそもあのlistを表示する最後のアウトプットの部分はどうなっているのか。
+
+            //多分ここがdart
             Consumer<CartModel>(
                 builder: (context, cart, child) =>
+                    // これが実際に引き出しているところになっているぽいぞ。
+                    // しかしこれはtotalPlace、つまり別のところにまだありそうだぜ。
                     Text('\$${cart.totalPrice}', style: hugeStyle)),
             SizedBox(width: 24),
             FlatButton(

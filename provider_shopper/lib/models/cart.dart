@@ -5,6 +5,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:provider_shopper/models/catalog.dart';
 
+// ここにChangeNotifierがあるのね。
 class CartModel extends ChangeNotifier {
   /// The current catalog. Used to construct items from numeric ids.
   final CatalogModel _catalog;
