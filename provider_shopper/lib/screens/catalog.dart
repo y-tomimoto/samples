@@ -32,10 +32,16 @@ class _AddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // そしてここでもやっぱりこういう使い回しがされている。
+    // ```Provider.of<CartModel>(context);```これでアクセスされるのか！！
+    // > https://pub.dev/documentation/provider/latest/provider/Provider-class.html
+
+    // このクラスの上位クラスを検索し、最短のProvider<特定のクラス>の値を取得する。
     var cart = Provider.of<CartModel>(context);
 
     return FlatButton(
-      onPressed: cart.items.contains(item) ? null : () => cart.add(item),
+      // ここでaddが実行されているぞ！！！！！！！！
+      onPressed: cart.items.contains(item) ? null : () => cart.add(item), // ここ,ここ！！！
       splashColor: Theme.of(context).primaryColor,
       child: cart.items.contains(item)
           ? Icon(Icons.check, semanticLabel: 'ADDED')

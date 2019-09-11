@@ -5,7 +5,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:provider_shopper/models/catalog.dart';
 
-// ここにChangeNotifierがあるのね。
+// ここにChangeNotifierがあるのね、この中でchangeNotifierが実行されるのか。
 class CartModel extends ChangeNotifier {
   /// The current catalog. Used to construct items from numeric ids.
   final CatalogModel _catalog;
@@ -34,6 +34,8 @@ class CartModel extends ChangeNotifier {
     _itemIds.add(item.id);
     // This line tells [Model] that it should rebuild the widgets that
     // depend on it.
+
+    // はい！ここにnotifyListenersが登場！つまりこのaddが実行されたらリスナーに通知がいくことになる。
     notifyListeners();
   }
 }

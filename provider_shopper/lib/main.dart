@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     // この中でリスナーをいくつも宣言している。
     return MultiProvider(
 
-      providers: [
+      providers: [ // ここがroot扱いとなる。いわゆるwrapperだな。
 
         // In this sample app, CatalogModel never changes, so a simple Provider
         // is sufficient.
@@ -42,6 +42,11 @@ class MyApp extends StatelessWidget {
         // このとき名前は適当でも良いのだろうか?
         // ここについては、変更をlistenしても何も変わらない前提で作成されている。
 
+        // これがListenerになっている?ただ、ChangeNotifierProviderではなく、ただのProviderなんだよな、、、
+        // 今回は実際のNotifyListenerは1つだけ。
+        // CatalogModelにはChangeNotifierがないけど、一応リスナーを設定しているだけなのだろうか、、、
+
+        // これはlistenerに
         Provider(
             // このbuilderとは一体なんなんだ。
             // CatalogModelクラスに対して何かをしているように見える。
@@ -71,7 +76,16 @@ class MyApp extends StatelessWidget {
         // なるほど学習になる。実は上記の `ChangeNotifierProvider`とやっていることは同じなのか。
 
         // ふつうはlistenerを作成する際は、自身でlistenerクラスを定義して、その中にconsumerクラスを用意する必要がある。
+        // しかしそれだと、https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProxyProvider-class.html
+        // のようなミスが起きる。
 
+        // ここではまじで何をしてんだ、、、
+        // > https://pub.dev/documentation/provider/latest/provider/ChangeNotifierProxyProvider-class.html
+
+        // 他のプロバイダーから取得した値からChangeNotifierを構築および同期するChangeNotifierProvider。
+
+        // これもなんらかのListenerになっていることは間違いないのだが、、
+        // これはモデルか?
         ChangeNotifierProxyProvider<CatalogModel, CartModel>(
 
             // これもまたbuilderになっている。
@@ -80,17 +94,18 @@ class MyApp extends StatelessWidget {
 
             // 第2引数、第3引数を渡して、CartModelを実行している。
 
-            builder: (context, catalog, previousCart) =>
-
-                // これはカートモデルを2つの引数を用いて実行しているようだが、、、
-                CartModel(catalog, previousCart)
-
+            // 結局作成しているのはCartModelじゃんか。
+            // これはCatalogModelのvalueになっている。
+            builder: (context, catalog, previousCart) => CartModel(catalog, previousCart)
         ),
-
       ],
+
+      // なるほど、Provider.of()とconsumerは、上位の値を活用するためのクラスなのね
 
       // これは存在してもいいのか?
       // 存在していい。rootとして別に実行されているものになる。
+
+      // そしてこれが下位のネストになる。これでこれ以下のディレクトリでは、provider.ofでもconsumerでも値の参照が可能になるというわけだ。
       child: MaterialApp(
 
         // これは普通のMaterial App
